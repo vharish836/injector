@@ -1,7 +1,9 @@
 package bridge
 
+// GetInfoReq ...
 type GetInfoReq struct{}
 
+// GetInfoRsp ...
 type GetInfoRsp struct {
 	Version         string  `json:"version"`
 	Nodeversion     int     `json:"nodeversion"`
@@ -32,8 +34,10 @@ type GetInfoRsp struct {
 	Errors          string  `json:"errors"`
 }
 
+// GetBlockChainParamsReq ...
 type GetBlockChainParamsReq struct{}
 
+// GetBlockChainParamsRsp ...
 type GetBlockChainParamsRsp struct {
 	ChainProtocol            string  `json:"chain-protocol"`
 	ChainDescription         string  `json:"chain-description"`
@@ -104,8 +108,10 @@ type GetBlockChainParamsRsp struct {
 	ChainParamsHash          string  `json:"chain-params-hash"`
 }
 
+// GetRuntimeParamsReq ...
 type GetRuntimeParamsReq struct{}
 
+// GetRuntimeParamsRsp ...
 type GetRuntimeParamsRsp struct {
 	Port                 int     `json:"port"`
 	Reindex              bool    `json:"reindex"`
@@ -130,71 +136,93 @@ type GetRuntimeParamsRsp struct {
 	Genproclimit         int     `json:"genproclimit"`
 }
 
+// SetRuntimeParamReq ...
 type SetRuntimeParamReq struct {
 	Param string
 	Value interface{}
 }
 
+// SetRuntimeParamRsp ...
 type SetRuntimeParamRsp struct{}
 
+// HelpReq ...
 type HelpReq struct{}
 
+// HelpRsp ...
 type HelpRsp string
 
+// StopReq ...
 type StopReq struct{}
 
+// StopRsp ...
 type StopRsp string
 
+// AddMultiSigAddressReq ...
 type AddMultiSigAddressReq struct {
 	NRequired int      `json:"nrequired"`
 	Addresses []string `json:"addresses"`
 }
 
+// AddMultiSigAddressRsp ...
 type AddMultiSigAddressRsp string
 
+// GetAddressesReq ...
 type GetAddressesReq struct{}
 
+// GetAddressesRsp ...
 type GetAddressesRsp []string
 
+// GetNewAddressReq ...
 type GetNewAddressReq struct{}
 
+// GetNewAddressRsp ...
 type GetNewAddressRsp string
 
+// ImportAddressReq ...
 type ImportAddressReq []struct {
 	Address string `json:"address"`
 	Label   string `json:"label,omitempty"`
 	Rescan  bool   `json:"rescan,omitempty"`
 }
 
+// ImportAddressRsp ...
 type ImportAddressRsp struct{}
 
+// ListAddressesReq ...
 type ListAddressesReq struct{}
 
+// ListAddressesRsp ...
 type ListAddressesRsp []struct {
 	Address string `json:"address"`
 	Ismine  bool   `json:"ismine"`
 }
 
+// CreateKeyPairsReq ...
 type CreateKeyPairsReq struct{}
 
+// CreateKeyPairsRsp ...
 type CreateKeyPairsRsp []struct {
 	Address string `json:"address"`
 	Pubkey  string `json:"pubkey"`
 	Privkey string `json:"privkey"`
 }
 
+// CreateMultiSigReq ...
 type CreateMultiSigReq struct {
 	NRequired int      `json:"nrequired"`
 	Addresses []string `json:"addresses"`
 }
 
+// CreateMultiSigRsp ...
 type CreateMultiSigRsp struct {
 	Address      string `json:"address"`
 	RedeemScript string `json:"redeemScript"`
 }
 
+// ValidateAddressReq ...
 type ValidateAddressReq string
 
+// ValidateAddressRsp ...
 type ValidateAddressRsp struct {
 	Isvalid      bool   `json:"isvalid"`
 	Address      string `json:"address"`
