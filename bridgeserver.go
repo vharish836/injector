@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/vharish836/jrpc/injector"
+	"github.com/vharish836/injector/bridge"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/rpc"
@@ -14,7 +14,7 @@ import (
 func main() {
 	s := rpc.NewServer()
 	s.RegisterCodec(gorilla.NewCodec(), "application/json")
-	bridge := &injector.Bridgeservice{Username: "username", Password: "password"}
+	bridge := &bridge.BridgeService{Username: "username", Password: "password"}
 	err := s.RegisterService(bridge, "")
 	if err != nil {
 		log.Fatalf("could not register. %s", err)
