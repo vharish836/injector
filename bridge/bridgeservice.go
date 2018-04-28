@@ -1,10 +1,8 @@
 package bridge
 
 import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"log"
+	"bytes"	
+	"errors"	
 	"net/http"
 	"reflect"
 
@@ -63,12 +61,7 @@ func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp 
 	err = gorilla.DecodeClientResponse(rsp.Body, &resp)
 	if err != nil {
 		return err
-	}
-	jbuf, err = json.MarshalIndent(resp, "", "\t")
-	if err != nil {
-		return err
-	}
-	log.Printf("buffer: %s", jbuf)
+	}	
 	return nil
 }
 

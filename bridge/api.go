@@ -179,7 +179,7 @@ type GetNewAddressReq struct{}
 type GetNewAddressRsp string
 
 // ImportAddressReq ...
-type ImportAddressReq []struct {
+type ImportAddressReq struct {
 	Address string `json:"address"`
 	Label   string `json:"label,omitempty"`
 	Rescan  bool   `json:"rescan,omitempty"`
