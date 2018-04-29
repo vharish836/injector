@@ -5,20 +5,33 @@ import (
 	"errors"
 	"net/http"
 	"reflect"
+	"strings"
 
+	"github.com/vharish836/rpc"
 	gorilla "github.com/vharish836/rpc/json"
 )
 
 // Service ...
 type Service struct {
-	Username string
-	Password string
+	UserName    string
+	PassWord    string
+	RPCUser     string
+	RPCPassWord string
+	RPCPort     string
+}
+
+// Interceptor ...
+func (b *Service) Interceptor(r *rpc.RequestInfo) *http.Request {
+	req := r.Request
+	method := "Service." + strings.ToUpper(r.Method[:1]) + r.Method[1:]
+	req.Header.Set("X-Method", method)
+	return req
 }
 
 // CheckAuth ...
 func (b *Service) CheckAuth(r *http.Request) error {
 	username, password, ok := r.BasicAuth()
-	if ok != true || username != b.Username || password != b.Password {
+	if ok != true || username != b.UserName || password != b.PassWord {
 		return errors.New("Unauthorized")
 	}
 	return nil
@@ -26,7 +39,6 @@ func (b *Service) CheckAuth(r *http.Request) error {
 
 // GetResponseFromPlatform ...
 func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp interface{}) error {
-	url := "http://localhost:6296/"
 	var jbuf []byte
 	var err error
 	pv := reflect.ValueOf(args).Elem()
@@ -47,11 +59,11 @@ func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp 
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jbuf))
+	req, err := http.NewRequest("POST", "http://localhost:"+b.RPCPort+"/", bytes.NewBuffer(jbuf))
 	if err != nil {
 		return err
 	}
-	req.SetBasicAuth("multichainrpc", "4FBBr9xFmiKe6RBA1F8G2ji6RBaxkQhvoQkefDx2GCK4")
+	req.SetBasicAuth(b.RPCUser, b.RPCPassWord)
 	req.Header.Set("Content-Type", "application/json")
 	rsp, err := http.DefaultClient.Do(req)
 	if err != nil {
