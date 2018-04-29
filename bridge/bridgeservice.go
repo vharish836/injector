@@ -1,8 +1,8 @@
 package bridge
 
 import (
-	"bytes"	
-	"errors"	
+	"bytes"
+	"errors"
 	"net/http"
 	"reflect"
 
@@ -61,7 +61,7 @@ func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp 
 	err = gorilla.DecodeClientResponse(rsp.Body, &resp)
 	if err != nil {
 		return err
-	}	
+	}
 	return nil
 }
 
@@ -78,23 +78,23 @@ func (b *Service) HandleAPI(r *http.Request, args interface{}, reply interface{}
 	return nil
 }
 
-// GetInfo ...
-func (b *Service) GetInfo(r *http.Request, args *GetInfoReq, reply *GetInfoRsp) error {
+// Getinfo ...
+func (b *Service) Getinfo(r *http.Request, args *GetInfoReq, reply *GetInfoRsp) error {
 	return b.HandleAPI(r, args, reply, "getinfo")
 }
 
-// GetBlockChainParams ...
-func (b *Service) GetBlockChainParams(r *http.Request, args *GetBlockChainParamsReq, reply *GetBlockChainParamsRsp) error {
+// Getblockchainparams ...
+func (b *Service) Getblockchainparams(r *http.Request, args *GetBlockChainParamsReq, reply *GetBlockChainParamsRsp) error {
 	return b.HandleAPI(r, args, reply, "getblockchainparams")
 }
 
-// GetRuntimeParams ...
-func (b *Service) GetRuntimeParams(r *http.Request, args *GetRuntimeParamsReq, reply *GetRuntimeParamsRsp) error {
+// Getruntimeparams ...
+func (b *Service) Getruntimeparams(r *http.Request, args *GetRuntimeParamsReq, reply *GetRuntimeParamsRsp) error {
 	return b.HandleAPI(r, args, reply, "getruntimeparams")
 }
 
-// SetRuntimeParam ...
-func (b *Service) SetRuntimeParam(r *http.Request, args *SetRuntimeParamReq, reply *SetRuntimeParamRsp) error {
+// Setruntimeparam ...
+func (b *Service) Setruntimeparam(r *http.Request, args *SetRuntimeParamReq, reply *SetRuntimeParamRsp) error {
 	return b.HandleAPI(r, args, reply, "setruntimeparam")
 }
 
@@ -108,42 +108,42 @@ func (b *Service) Stop(r *http.Request, args *StopReq, reply *StopRsp) error {
 	return b.HandleAPI(r, args, reply, "stop")
 }
 
-// AddMultiSigAddress ...
-func (b *Service) AddMultiSigAddress(r *http.Request, args *AddMultiSigAddressReq, reply *AddMultiSigAddressRsp) error {
+// Addmultisigaddress ...
+func (b *Service) Addmultisigaddress(r *http.Request, args *AddMultiSigAddressReq, reply *AddMultiSigAddressRsp) error {
 	return b.HandleAPI(r, args, reply, "addmultisigaddress")
 }
 
-// GetAddresses ...
-func (b *Service) GetAddresses(r *http.Request, args *GetAddressesReq, reply *GetAddressesRsp) error {
+// Getaddresses ...
+func (b *Service) Getaddresses(r *http.Request, args *GetAddressesReq, reply *GetAddressesRsp) error {
 	return b.HandleAPI(r, args, reply, "getaddresses")
 }
 
-// GetNewAddress ...
-func (b *Service) GetNewAddress(r *http.Request, args *GetNewAddressReq, reply *GetNewAddressRsp) error {
+// Getnewaddress ...
+func (b *Service) Getnewaddress(r *http.Request, args *GetNewAddressReq, reply *GetNewAddressRsp) error {
 	return b.HandleAPI(r, args, reply, "getnewaddress")
 }
 
-// ImportAddress ...
-func (b *Service) ImportAddress(r *http.Request, args *ImportAddressReq, reply *ImportAddressRsp) error {
+// Importaddress ...
+func (b *Service) Importaddress(r *http.Request, args *ImportAddressReq, reply *ImportAddressRsp) error {
 	return b.HandleAPI(r, args, reply, "importaddress")
 }
 
-// ListAddresses ...
-func (b *Service) ListAddresses(r *http.Request, args *ListAddressesReq, reply *ListAddressesRsp) error {
+// Listaddresses ...
+func (b *Service) Listaddresses(r *http.Request, args *ListAddressesReq, reply *ListAddressesRsp) error {
 	return b.HandleAPI(r, args, reply, "listaddresses")
 }
 
-// CreateKeyPairs ...
-func (b *Service) CreateKeyPairs(r *http.Request, args *CreateKeyPairsReq, reply *CreateKeyPairsRsp) error {
+// Createkeypairs ...
+func (b *Service) Createkeypairs(r *http.Request, args *CreateKeyPairsReq, reply *CreateKeyPairsRsp) error {
 	return b.HandleAPI(r, args, reply, "createkeypairs")
 }
 
-// CreateMultiSig ...
-func (b *Service) CreateMultiSig(r *http.Request, args *CreateMultiSigReq, reply *CreateMultiSigRsp) error {
+// Createmultisig ...
+func (b *Service) Createmultisig(r *http.Request, args *CreateMultiSigReq, reply *CreateMultiSigRsp) error {
 	return b.HandleAPI(r, args, reply, "createmultisig")
 }
 
-// ValidateAddress ...
-func (b *Service) ValidateAddress(r *http.Request, args *ValidateAddressReq, reply *ValidateAddressRsp) error {
+// Validateaddress ...
+func (b *Service) Validateaddress(r *http.Request, args *ValidateAddressReq, reply *ValidateAddressRsp) error {
 	return b.HandleAPI(r, args, reply, "validateaddress")
 }
