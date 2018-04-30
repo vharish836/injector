@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/vharish836/rpc"
-	gorilla "github.com/vharish836/rpc/json"
+	"github.com/gorilla/rpc"
+	rjson "github.com/gorilla/rpc/json"
 )
 
 // Service ...
@@ -44,17 +44,17 @@ func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp 
 	pv := reflect.ValueOf(args).Elem()
 	if pv.Kind() == reflect.Struct {
 		if numFields := pv.NumField(); numFields == 0 {
-			jbuf, err = gorilla.EncodeClientRequest(method, nil)
+			jbuf, err = rjson.EncodeClientRequest(method, nil)
 		} else {
 			var params []interface{}
 			for index := 0; index < numFields; index++ {
 				params = append(params, pv.Field(index).Addr().Interface())
 			}
-			jbuf, err = gorilla.EncodeClientRequest(method, params)
+			jbuf, err = rjson.EncodeClientRequest(method, params)
 		}
 	} else {
 		params := []interface{}{args}
-		jbuf, err = gorilla.EncodeClientRequest(method, params)
+		jbuf, err = rjson.EncodeClientRequest(method, params)
 	}
 	if err != nil {
 		return err
@@ -70,7 +70,7 @@ func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp 
 		return err
 	}
 	defer rsp.Body.Close()
-	err = gorilla.DecodeClientResponse(rsp.Body, &resp)
+	err = rjson.DecodeClientResponse(rsp.Body, &resp)
 	if err != nil {
 		return err
 	}

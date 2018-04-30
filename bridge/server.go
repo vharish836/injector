@@ -3,16 +3,16 @@ package bridge
 import (
 	"log"
 
-	"github.com/vharish836/rpc"
-	gorilla "github.com/vharish836/rpc/json"
+	"github.com/gorilla/rpc"
+	rjson "github.com/gorilla/rpc/json"
 )
 
 // Init ...
 func Init(c *Config) *rpc.Server {
 	s := rpc.NewServer()
-	s.RegisterCodec(gorilla.NewCodec(), "application/json")
-	bridge := &Service{UserName: c.UserName, 
-		PassWord: c.PassWord, 
+	s.RegisterCodec(rjson.NewCodec(), "application/json")
+	bridge := &Service{UserName: c.UserName,
+		PassWord: c.PassWord,
 		RPCUser: c.MultiChain.RPCUser,
 		RPCPassWord: c.MultiChain.RPCPassword,
 		RPCPort: c.MultiChain.RPCPort}
