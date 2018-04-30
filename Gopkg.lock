@@ -25,9 +25,9 @@
     ".",
     "json"
   ]
-  revision = "22c016f3df3febe0c1f6727598b6389507e03a18"
+  revision = "0c73c8cb75aa7921ae2f9aa08b1a12243edb6429"
   source = "github.com/vharish836/rpc"
-  version = "v1.1.0"
+  version = "v1.2.0"
 
 [[projects]]
   branch = "master"
@@ -44,6 +44,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "3161a368752438abfd77db03756144ed069732f068543e1b9086607191ba30a7"
+  inputs-digest = "bbb563c238f34ca0316c023cd0abfcd6ade8b4bfcf42a628c2ebafabd0c84378"
   solver-name = "gps-cdcl"
   solver-version = 1
