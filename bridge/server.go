@@ -20,6 +20,12 @@ func Init(c *Config) *rpc.Server {
 	if err != nil {
 		log.Fatalf("could not register. %s", err)
 	}
-	s.RegisterInterceptFunc(bridge.Interceptor)
+	if c.EasyAPI == true {
+		log.Printf("Interceting requests for easy API support\n")
+		s.RegisterInterceptFunc(bridge.Interceptor)
+	} else {
+		log.Printf("No easy API support, use full names\n")
+	}
+	
 	return s
 }
