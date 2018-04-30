@@ -49,3 +49,7 @@
   name = "github.com/gorilla/rpc"
   source = "github.com/vharish836/rpc"
   version = "1.2.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/golang/glog"

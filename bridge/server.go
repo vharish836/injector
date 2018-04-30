@@ -1,8 +1,7 @@
 package bridge
 
 import (
-	"log"
-
+	"github.com/golang/glog"
 	"github.com/gorilla/rpc"
 	rjson "github.com/gorilla/rpc/json"
 )
@@ -18,13 +17,13 @@ func Init(c *Config) *rpc.Server {
 		RPCPort: c.MultiChain.RPCPort}
 	err := s.RegisterService(bridge, "")
 	if err != nil {
-		log.Fatalf("could not register. %s", err)
+		glog.Fatalf("could not register. %s", err)
 	}
 	if c.EasyAPI == true {
-		log.Printf("Interceting requests for easy API support\n")
+		glog.V(1).Infof("Interceting requests for easy API support")
 		s.RegisterInterceptFunc(bridge.Interceptor)
 	} else {
-		log.Printf("No easy API support, use full names\n")
+		glog.V(1).Infof("No easy API support, use full names\n")
 	}
 	
 	return s

@@ -2,11 +2,14 @@ package bridge
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
 
+	"github.com/golang/glog"
 	"github.com/gorilla/rpc"
 	rjson "github.com/gorilla/rpc/json"
 )
@@ -59,6 +62,7 @@ func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp 
 	if err != nil {
 		return err
 	}
+	glog.V(2).Infof("Request ==>\n%s", jbuf)
 	req, err := http.NewRequest("POST", "http://localhost:"+b.RPCPort+"/", bytes.NewBuffer(jbuf))
 	if err != nil {
 		return err
@@ -70,9 +74,28 @@ func (b *Service) GetResponseFromPlatform(method string, args interface{}, resp 
 		return err
 	}
 	defer rsp.Body.Close()
+	if rsp.StatusCode != 200 {
+		rbuf := make([]byte, 200)
+		n, _ := rsp.Body.Read(rbuf)
+		if n == 0 {
+			glog.V(2).Infof("Response (Status)<==\n%s\n", rsp.Status)
+			return errors.New(rsp.Status)
+		}
+		glog.V(2).Infof("Response <==\n%s\n", rbuf)
+		s := fmt.Sprintf("%s", rbuf)
+		return errors.New(s)
+	}
 	err = rjson.DecodeClientResponse(rsp.Body, &resp)
 	if err != nil {
+		glog.V(2).Infof("Response <==\n%s\n", err)
 		return err
+	}
+	if glog.V(2) {
+		jbuf, err = json.MarshalIndent(resp, "", "\t")
+		if err != nil {
+			glog.Warningf("could not encode response. %s", err)
+		}
+		glog.Infof("Response <==\n%s\n", jbuf)
 	}
 	return nil
 }
